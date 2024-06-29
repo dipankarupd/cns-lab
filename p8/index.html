@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diffie-Hellman Key Exchange</title>
+</head>
+<body>
+    <h1>Diffie-Hellman Key Exchange</h1>
+    <div>
+        <label>Enter a prime number (p): <input type="number" id="prime"></label>
+    </div>
+    <div>
+        <label>Enter a base number (g): <input type="number" id="base"></label>
+    </div>
+    <div>
+        <label>Enter Alice's private key (a): <input type="number" id="privateKeyA"></label>
+    </div>
+    <div>
+        <label>Enter Bob's private key (b): <input type="number" id="privateKeyB"></label>
+    </div>
+    <button id="generateKeys">Generate Keys</button>
+
+    <div id="output"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

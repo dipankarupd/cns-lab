@@ -189,8 +189,8 @@ public class PlayFairCipher {
 
     public static void main(String[] args) {
         
-        PlayFairCipher c = new PlayFairCipher("PANDA");
-        String ans = c.encode("HAPPYME");
+        PlayFairCipher c = new PlayFairCipher("MYKEY");
+        String ans = c.encode("HELLO");
         System.out.println(ans);
         System.out.println(c.decode(ans));
         
