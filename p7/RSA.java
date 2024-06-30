@@ -3,54 +3,57 @@ package lab.p7;
 import java.math.*;
 
 public class RSA {
-   public static int getGCD(int mod, int num) {
-      // If the mod is zero, return the num
-      if (mod == 0)
-         return num;
-      else
-         // recursive function call
-         return getGCD(num % mod, mod);
-   }
    public static void main(String args[]) {
-      int d = 0, e; // Intialization      
-      int message = 32; // number message      
-      int prime1 = 5; // 1st prime number p
-      int prime2 = 7; // 2nd prime number q
-      int primeMul = prime1 * prime2; // performing operations
-      int primeMul1 = (prime1 - 1) * (prime2 - 1);
-      System.out.println("primeMul1 is equal to : " + primeMul1 + "\n");
-      // Finding the valid public key
-      for (e = 2; e < primeMul1; e++) {
-         // Here e is a public key
-         if (getGCD(e, primeMul1) == 1) {
+      int M = 17;
+      int e;
+      int d = 0;
+
+      // get 2 prime numbers p and q
+      int p = 7;
+      int q = 11;
+
+      // eval n and phi_n = x
+      int n = p * q;
+      int x = (p - 1) * (q - 1);
+
+      // evaluate e -> gcd(a, x) = 1
+      for (e = 2; e < x; e++) {
+         if (gcd(e, x) == 1)
             break;
-         }
       }
-      // Printing the public key
-      System.out.println("Public key e is = " + e);
-      // Calculating the private key
-      for (int m = 0; m <= 9; m++) {
-         // get the value of temp
-         int temp = 1 + (m * primeMul1);
-         // private key
+
+      // evaluate d => e-1 mod x
+      for (int i = 0; i < 10; i++) {
+         int temp = 1 + (i * x);
+
          if (temp % e == 0) {
             d = temp / e;
             break;
          }
       }
-      System.out.println("d is : " + d);
-      double cipher;
-      BigInteger d_message;
-      // getting the cipher text
-      cipher = (Math.pow(message, e)) % primeMul;
-      System.out.println("Cipher text is : " + cipher);
-      // Int to BigInteger
-      BigInteger bigN = BigInteger.valueOf(primeMul);
-      // Float to bigINt
-      BigInteger bigC = BigDecimal.valueOf(cipher).toBigInteger();
-      // decrypting the message
-      d_message = (bigC.pow(d)).mod(bigN);
-      // print decrypted message
-      System.out.println("Decrypted text is : " + d_message);
+
+      System.out.println("PU = {" + e + ", " + d + "}");
+
+      // calculate c and ans
+
+      // c = m^e mod n
+      double c = Math.pow(M, e) % n;
+      System.out.println("Encrypted message: " + c);
+
+      BigInteger ans;
+
+      // D = C^d mod n
+      BigInteger bigc = BigDecimal.valueOf(c).toBigInteger();
+      BigInteger bign = BigInteger.valueOf(n);
+
+      ans = bigc.pow(d).mod(bign);
+      System.out.println("Initial message: " + ans);
+
+   }
+
+   static int gcd(int a, int b) {
+      if (b == 0)
+         return a;
+      return gcd(b, a % b);
    }
 }
