@@ -1,24 +1,28 @@
-// Arrow function for generating keys
-const generateKeys = () => {
-    const getValue = id => parseInt(document.getElementById(id).value);
-    const prime = getValue('prime');
-    const base = getValue('base');
-    const privateKeyA = getValue('privateKeyA');
-    const privateKeyB = getValue('privateKeyB');
+document.getElementById("generate")
+.addEventListener("click", () => {
 
-    const modExp = (base, exponent, mod) => Math.pow(base, exponent) % mod;
+    const getvalue = (id) => parseInt(document.getElementById(id).value)
 
-    const publicKeyA = modExp(base, privateKeyA, prime);
-    const publicKeyB = modExp(base, privateKeyB, prime);
+    const p = getvalue('p')
+    const g = getvalue('g')
+    const A = getvalue('A')
+    const B = getvalue('B')
 
-    const sharedSecretA = modExp(publicKeyB, privateKeyA, prime);
-    const sharedSecretB = modExp(publicKeyA, privateKeyB, prime);
+    const calc = (base, exponent, mod) => Math.pow(base,exponent) % mod
 
-    document.getElementById('output').innerHTML = `
-        <p>Alice's public key: ${publicKeyA}</p>
-        <p>Bob's public key: ${publicKeyB}</p>
-        <p>Shared secret for Alice: ${sharedSecretA}</p>
-        <p>Shared secret for Bob: ${sharedSecretB}</p>
-    `;
-};
-document.getElementById('generateKeys').addEventListener('click', generateKeys);
+    // calculate public key of A: 
+    const a = calc(g, A, p)
+    const b = calc(g, B, p)
+
+    // calculate shared secret key: 
+    const ka = calc(b, A, p)
+    const kb = calc(a, B, p)
+
+    const res = `
+    <p>Alice Public key: ${a} </p>
+    <p>Bob public key: ${b} </p>
+    <p>Shared key 1: ${ka} </p>
+    <p> Shared key 2: ${kb} </p>
+    `
+    document.getElementById("op").innerHTML = res
+})
