@@ -1,4 +1,4 @@
-package lab.p10;
+package p10;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

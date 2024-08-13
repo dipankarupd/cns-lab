@@ -1,4 +1,4 @@
-package lab.p7;
+package p7;
 
 import java.math.*;
 

@@ -1,4 +1,4 @@
-package lab.p9;
+package p9;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
